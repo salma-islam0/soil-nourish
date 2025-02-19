@@ -12,6 +12,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+        <st
     </head>
     <body>
         <!-- Head Start -->
@@ -70,7 +71,6 @@
         <!-- Landing Start -->
         <div id="landing">
             <div class="container">
-                
                 <div class="text">
                     <h1>Welcome, To Soill Norish World</h1>
                     <p>We revitalize the soil and restore the nutrients ensuring sustainable future for both the soil and plants</p>
@@ -83,6 +83,68 @@
                 </a>                
             </div>
         </div>
+        <div id="services">
+            <div class="container">
+                <h2>Sensor Reading</h2>
+                <div class="content">
+                    <div>
+                        <i class="fa-brands fa-canadian-maple-leaf"></i> 
+                        <h3>TDS (PPM)</h3>
+                        <h2 id="tds">100</h2>
+                        <div style="padding: 5px; margin: 5px;"></div>
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-hand-holding-droplet"></i>
+                        <h3>Moisture (%)</h3>
+                        <div>
+                            <h2 id="moisture">100</h2>
+                        </div>
+                        
+                        <div style="padding: 5px; margin: 5px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    
+        <script>
+            async function fetchData() {
+                const url = "https://script.google.com/macros/s/AKfycby6A_xn_v9fWrnXZ_j9tfEF3Fnv1BF1enaRtEaUjhdU3bfMZw0XjnIo5SXxzyn8EwD6mQ/exec";
+                const testCase = { action: 'get', row: 2 };
+    
+                try {
+                    const response = await fetch(url, {
+                        redirect :"follow",
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "text/plain;charset=utf-8",
+                        },
+                        body: JSON.stringify(testCase)
+                    });
+    
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                
+                    const result = await response.json(); // First parse
+                    console.log('Response:', result);
+                    const data = JSON.parse(result.data); // Second parse
+    
+                    // Display values on the page
+                    document.getElementById("moisture").textContent = `${data.moisture}`;
+                    document.getElementById("tds").textContent = `${data.tds}`;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+    
+            
+            setInterval(fetchData, 3000);
+            fetchData();
+        </script>
+    
         <!-- Landing End -->
         <div id="events">
             <h2>log in your account</h2>
